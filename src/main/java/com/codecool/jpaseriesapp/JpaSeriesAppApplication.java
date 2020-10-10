@@ -1,6 +1,7 @@
 package com.codecool.jpaseriesapp;
 
 import com.codecool.jpaseriesapp.entity.Episode;
+import com.codecool.jpaseriesapp.entity.Rating;
 import com.codecool.jpaseriesapp.entity.Season;
 import com.codecool.jpaseriesapp.entity.Series;
 import com.codecool.jpaseriesapp.repository.EpisodeRepository;
@@ -201,6 +202,14 @@ public class JpaSeriesAppApplication {
 
             Series ozark = Series.builder()
                     .title("Ozark")
+                    .rating(Rating.NC17)
+                    .genre("Crime drama")
+                    .genre("Thriller")
+                    .actor("Jason Bateman")
+                    .actor("Laura Linney")
+                    .actor("Sofia Hublitz")
+                    .actor("Julia Garner")
+                    .actor("Jordana Spiro")
                     .distributor("Netflix")
                     .countryOfOrigin("USA")
                     .season(season1)

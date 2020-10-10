@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Set;
 
 @Data // getters, setters
@@ -24,6 +25,17 @@ public class Series {
     private int numberOfEpisodes;
     private String distributor;
     private String countryOfOrigin;
+
+    @Enumerated(EnumType.STRING)
+    private Rating rating;
+
+    @Singular("genre")
+    @ElementCollection
+    private List<String> genres;
+
+    @Singular("actor")
+    @ElementCollection
+    private List<String> actors;
 
     @Singular("season")
     @EqualsAndHashCode.Exclude
