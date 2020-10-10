@@ -1,28 +1,42 @@
 package com.codecool.jpaseriesapp.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Set;
 
-// Lombok annotations
-@Data // getters, setters, constructor
+@Data // getters, setters
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-// JPA annotation
 @Entity
 public class Series {
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String title;
+    private LocalDate releaseYear;
+    private int numberOfSeasons;
+    private int numberOfEpisodes;
+    private String distributor;
+    private String countryOfOrigin;
 
+    @Singular("season")
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "series", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Set<Season> seasonSet;
 
+    @Transient
+    private long age;
 
+    public void calculateAge() {
+        if (releaseYear != null) {
+            age = ChronoUnit.YEARS.between(releaseYear, LocalDate.now());
+        }
+    }
 
 }
